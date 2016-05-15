@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="framework/bootstrap-3.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/app.css">
+	<script type="text/javascript" src="framework/jquery/dist/jquery.min.js"></script>
+	<!-- <script type="text/javascript" src="framework/angular/angular.min.js"></script>
+	<script type="text/javascript" src="framework/angular-animate/angular-animate.min.js"></script> -->
+	<script type="text/javascript" src="framework/bootstrap-3.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-1 col-sm-1 col-md-1">
+							<span class="glyphicon glyphicon-circle-arrow-left"></span>
+						</div>
+						<div class="col-xs-1 col-sm-1 col-md-1">
+							<span class="glyphicon glyphicon-send"></span>
+						</div>
+						<div class="col-sm-offset-9 col-xs-1 col-sm-offset-9 col-sm-1 col-md-offset-9 col-md-1">
+							<div style="width:70%;height:40%;border:1px solid gray;border-radius: 15%;">交卷</div>
+						</div>
+					</div>
+				</div>	
+				<div class="panel-body textBody">
+					<div class="row">
+						<div class="col-md-12">
+							<span class="glyphicon glyphicon-book"></span>
+							<strong>点击空格处，选择最恰当的词</strong>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 textP">
+							<p>
+								It's the first question parents ask when their child is diagnosed with autism (自闭症). Will his future brothers or sisters have a higher risk of 1 <div style="position: relative;display: inline"><input type="text" name="answer1"></div> it, too? According to the largest study of siblings (兄弟姐妹) in families with autism, the answer is yes. Among 664 children who had at least one older sibling with the developmental disorder, the 2 <input type="text" name="answer2"> risk of autism was nearly 19%, 3 <input type="text" name="answer3"> higher than previous sibling-recurrence estimates that were anywhere from 3% to 10%. Kids with more than one older autistic sibling had an even higher risk of the disorder: 32%. 
+							</p>
+							<p>
+								The 4 <input type="text" name="answer4"> suggest that genes play a key role in autism risk. But they also hint that other environmental factors 5 <input type="text" name="answer5"> by siblings, like influences in the womb (子宫), may be important as well. 
+							</p>
+							<p>
+								On the 6 <input type="text" name="answer5"> of the findings, the researchers recommend that doctors closely 7 <input type="text" name="answer7"> younger siblings of autistic children to pick up any early signs of the disorder, 8 <input type="text" name="answer8"> an unusually large head or delayed language development and communication skills. Evidence suggests that early 9 <input type="text" name="answer9"> and diagnosis of autism can help children take advantage of therapies that can treat some of its 10 <input type="text" name="answer10">
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-bordered table-outer-bordered"> 
+				<tr>
+					<td>common</td>
+					<td>results</td>
+					<td>consequently</td>
+				</tr>
+				<tr>
+					<td>basis</td>
+					<td>detection</td>
+					<td>monitor</td>
+				</tr>
+				<tr>
+					<td>symbols</td>
+					<td>average</td>
+					<td>dramatically</td>
+				</tr>
+				<tr>
+					<td>symptoms</td>
+					<td>reason</td>
+					<td>distributed</td>
+				</tr>
+				<tr>
+					<td>including</td>
+					<td>developing</td>
+					<td>shared</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	//获取事件对象
+	function getEventTarge(e){
+		e = e || window.event;
+		return e.target || e.srcElement;
+	}
+	//不同的事件类型来进行不同的操作
+	function editCell(event,eventType){
+		var target = getEventTarge(event);
+		if(target.tagName.toLowerCase() == 'td'){
+			if(eventType == 1 && selected){
+				//如果是mouseover
+				target.style.color = 'rgb(98,198,240)';
+				console.log(inputArr[selectedIndex]);
+				console.log(selectedIndex);
+				console.log(target.innerHTML);
+				inputArr[selectedIndex].value = target.innerHTML;
+			}
+			if(eventType == 2 && selected){
+				//如果鼠标移除 mouseout
+				target.style.color = 'black';
+			}
+			if(eventType == 3 && selected){
+				//如果鼠标点击 click
+				// if(false){
+				// 	// console.log(target.innerHTML);
+				// 	// console.log(selectedIndex);
+				// 	console.log(inputArr[selectedIndex]);
+				// 	inputArr[selectedIndex].value = target.innerHTML;
+				// }
+			}
+		}
+	}
+</script>
+<script type="text/javascript">
+	//给填空绑定事件
+	var inputArr = $("input");
+	var selected = false;//表示当前是否有被选中的padding
+	var selectedIndex;//表示当前选中的padding的序数
+
+	// inputArr.focus(function(event) {
+	// 	editCell(event,4);
+	// });
+	inputArr.each(function(index,element){
+		$(this).focus(function(event){
+			$(this).addClass('inputFocus');
+			selected = true;
+			selectedIndex = index;
+		});
+		$(this).blur(function(event){
+			$(this).removeClass('inputFocus');
+			selected = false;
+		});
+	});
+</script>
+<script type="text/javascript">
+
+	//给表格绑定事件
+	/*var oTd = $("table").find("td");
+	oTd.each(function(){
+		$(this).mouseover(function(event){
+			//只有当有padding被选中才能够有样式变化
+			if(selected){
+				$(this).addClass('cellGreen');
+			}
+		});
+		$(this).mouseout(function(event){
+			if(selected){
+				$(this).removeClass('cellGreen');
+			}
+		});
+		$(this).click(function(){
+			if(selected){
+				inputArr[selectedIndex].html($(this).html());
+			}
+		});
+	});*/
+	var oTable = $('table');
+	//事件代理给大的Table
+	oTable.mouseover(function(event){
+		editCell(event,1);
+	});
+	oTable.mouseout(function(event){
+		editCell(event,2);
+	});
+	oTable.click(function(event){
+		editCell(event,3);
+	});
+</script>
+</body>
+</html>

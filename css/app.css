@@ -1,0 +1,40 @@
+.textP p{
+	text-indent: 2em
+}
+p input{
+	width:60px;
+	border:0;
+	border-bottom: 1px solid #000;
+	text-align: center;
+}
+// div input{
+// 	width:60px;
+// 	border:0;
+// 	border-bottom: 1px solid #000;
+// 	text-align: center;
+// }
+.selected{
+	background: #000;
+}
+.inputFocus{
+	background: rgb(98,198,240);
+	color:black;
+	// padding-left:60px;
+}
+.inputUnselected{
+	background: #FFF;
+	color:black;
+	// padding-left:60px;
+}
+.textBody{
+	overflow: scroll;
+}
+.table-outer-bordered{
+	border: 2px solid gray;
+}
+.cellGreen{
+	color: rgb(98,198,240);
+}
+table.table-outer-bordered {
+	cursor: pointer;
+}
