@@ -3,18 +3,29 @@
 <head>
 	<title></title>
 	<meta charset="utf-8">
+	<!-- <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css"> -->
 	<link rel="stylesheet" type="text/css" href="framework/bootstrap-3.0.0/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/app.css">
 	<script type="text/javascript" src="framework/jquery/dist/jquery.min.js"></script>
+	<!-- <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script> -->
 	<!-- <script type="text/javascript" src="framework/angular/angular.min.js"></script>
 	<script type="text/javascript" src="framework/angular-animate/angular-animate.min.js"></script> -->
 	<script type="text/javascript" src="framework/bootstrap-3.0.0/js/bootstrap.min.js"></script>
+	<style>
+	 	#resizable { width: 100%;border-color:#FFF}
+	</style>
+<!-- 	<script type="text/javascript">
+		$(function() {
+		    $( "#resizable" ).resizable();
+		  });
+	</script> -->
 </head>
 <body>
+<div id="box">
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
+			<div class="panel panel-default" style="margin-bottom: 0px">
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-1 col-sm-1 col-md-1">
@@ -24,27 +35,27 @@
 							<span class="glyphicon glyphicon-send"></span>
 						</div>
 						<div class="col-sm-offset-9 col-xs-1 col-sm-offset-9 col-sm-1 col-md-offset-9 col-md-1">
-							<div style="width:70%;height:40%;border:1px solid gray;border-radius: 15%;">交卷</div>
+							<input type="submit" onclick="submit()">
 						</div>
 					</div>
 				</div>	
-				<div class="panel-body textBody">
-					<div class="row">
+				<div class="panel-body textBody" id="top">
+					<div class="row textTitle">
 						<div class="col-md-12">
 							<span class="glyphicon glyphicon-book"></span>
 							<strong>点击空格处，选择最恰当的词</strong>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12 textP">
+						<div class="col-md-12 textP" id="textPara">
 							<p>
-								It's the first question parents ask when their child is diagnosed with autism (自闭症). Will his future brothers or sisters have a higher risk of 1 <input type="text" name="answer1"> it, too? According to the largest study of siblings (兄弟姐妹) in families with autism, the answer is yes. Among 664 children who had at least one older sibling with the developmental disorder, the 2 <input type="text" name="answer2"> risk of autism was nearly 19%, 3 <input type="text" name="answer3"> higher than previous sibling-recurrence estimates that were anywhere from 3% to 10%. Kids with more than one older autistic sibling had an even higher risk of the disorder: 32%. 
+								It's the first question parents ask when their child is diagnosed with autism (自闭症). Will his future brothers or sisters have a higher risk of 1 <a name="1"><input type="text" name="answer[]"></a> it, too? According to the largest study of siblings (兄弟姐妹) in families with autism, the answer is yes. Among 664 children who had at least one older sibling with the developmental disorder, the 2 <a name="2"><input type="text" name="answer[]"></a> risk of autism was nearly 19%, 3 <a name="3"><input type="text" name="answer[]"></a> higher than previous sibling-recurrence estimates that were anywhere from 3% to 10%. Kids with more than one older autistic sibling had an even higher risk of the disorder: 32%. 
 							</p>
 							<p>
-								The 4 <input type="text" name="answer4"> suggest that genes play a key role in autism risk. But they also hint that other environmental factors 5 <input type="text" name="answer5"> by siblings, like influences in the womb (子宫), may be important as well. 
+								The 4 <a name="4"><input type="text" name="answer[]"></a> suggest that genes play a key role in autism risk. But they also hint that other environmental factors 5 <a name="5"><input type="text" name="answer[]"></a> by siblings, like influences in the womb (子宫), may be important as well. 
 							</p>
 							<p>
-								On the 6 <input type="text" name="answer5"> of the findings, the researchers recommend that doctors closely 7 <input type="text" name="answer7"> younger siblings of autistic children to pick up any early signs of the disorder, 8 <input type="text" name="answer8"> an unusually large head or delayed language development and communication skills. Evidence suggests that early 9 <input type="text" name="answer9"> and diagnosis of autism can help children take advantage of therapies that can treat some of its 10 <input type="text" name="answer10">
+								On the 6 <a name="6"><input type="text" name="answer[]"></a> of the findings, the researchers recommend that doctors closely 7 <a name="7"><input type="text" name="answer[]"></a> younger siblings of autistic children to pick up any early signs of the disorder, 8 <a name="8"><input type="text" name="answer[]"></a> an unusually large head or delayed language development and communication skills. Evidence suggests that early 9 <a name="9"><input type="text" name="answer[]"></a> and diagnosis of autism can help children take advantage of therapies that can treat some of its 10 <a name="10"><input type="text" name="answer[]"></a>
 							</p>
 						</div>
 					</div>
@@ -53,7 +64,21 @@
 		</div>
 	</div>
 </div>
-<div class="container">
+<div class="container" id="line">
+	<div  style="text-align:center;">
+		<canvas id="bar" class="canvasBorder">
+		</canvas>
+	</div>
+</div>
+<div class="container" id="bottom">
+	<div class="row">
+		<div class="container">
+			<div id="buttonList" class="buttonList">
+				
+			</div>
+		</div>
+		
+	</div>
 	<div class="row">
 		<div class="col-md-12">
 			<table class="table table-bordered table-outer-bordered"> 
@@ -86,6 +111,51 @@
 		</div>
 	</div>
 </div>
+</div>
+<script type="text/javascript">
+	//用来绘制bar
+	var bar=document.getElementById('bar');
+	var cxt=bar.getContext('2d');
+	cxt.moveTo(80,10);
+	cxt.lineTo(230,10);
+	cxt.moveTo(80,70);
+	cxt.lineTo(230,70);
+	cxt.moveTo(80,130);
+	cxt.lineTo(230,130);
+	cxt.stroke();
+</script>
+<script type="text/javascript">
+   var oBox = document.getElementById("box");
+   var oTop = document.getElementById("top");
+   var oBottom = document.getElementById("bottom");
+   var oLine = document.getElementById("line");
+   // var oTextPara  = document.getElementById("textPara");
+    oLine.onmousedown = function(e) {  
+        var disY = (e || event).clientY;  
+        oLine.top = oLine.offsetTop;  
+        document.onmousemove = function(e) {  
+            var iT = oLine.top + ((e || event).clientY - disY);  
+            var maxT = oBox.clientHeight - oLine.offsetHeight;  
+            // oLine.style.margin = 0;  
+            iT < 0 && (iT = 0);  
+            iT > maxT && (iT = maxT);  
+            oLine.style.top = oTop.style.height = iT - 50 +"px";  
+            //oBottom.style.height = oBox.clientHeight - iT + "px";  
+            // oTop.style.height = oTop.style.height - iT +'px';
+            // oTextPara.style.height = oTextPara.style.height - iT + 'px';
+            console.log(oTop.style.height);
+            // console.log(oTextPara.style.height);
+            return false;
+        };    
+        document.onmouseup = function() {  
+            document.onmousemove = null;  
+            document.onmouseup = null;    
+            oLine.releaseCapture && oLine.releaseCapture();
+        };  
+        oLine.setCapture && oLine.setCapture();  
+        return false;
+    };  
+</script>
 <script type="text/javascript">
 	var tdList = $("td");
 	var  lastContent;//用来保存改变之前的值的
@@ -137,6 +207,7 @@
 			if(eventType == 2 && selected){
 				//如果鼠标移除 mouseout
 				cellUnselected(target);
+				inputArr[selectedIndex].value = null;
 			}
 			if(eventType == 3 && selected){
 				//如果鼠标点击 click
@@ -147,12 +218,16 @@
 				inputUnselected(inputArr[selectedIndex]);
 				// console.log(inputArr[selectedIndex]);
 				inputArr[selectedIndex].value = target.innerHTML;
+				//将button也变色
+				console.log(selectedIndex);
+				console.log(oButtonList);
+				oButtonList.childNodes[selectedIndex+1].childNodes[0].childNodes[0].style.background = "rgb(98,198,240)";
 				target.style.textDecoration = "line-through";
 				target.style.color = "";
 				console.log(lastContent);
 				if(!lastContent){
 					//如果旧值为空，则将新值压入数组
-					alert("旧值为空，新值将压入数组");
+					// alert("旧值为空，新值将压入数组");
 					selectedWord.push(target.innerHTML);
 					console.log(selectedWord);
 					// lastCell = target;//保存点击的当前cell
@@ -161,7 +236,7 @@
 					//否则，判断lastContent和newContent是否相等
 					if(lastContent != target.innerHTML){
 						//如果不等，则需要先压入新值，弹出旧值，然后再看旧值是否在selectedWord中，如果在，则中划线
-						alert("新值旧值不等，将压入新值，删除旧值，再查找旧值");
+						// alert("新值旧值不等，将压入新值，删除旧值，再查找旧值");
 						selectedWord.push(target.innerHTML);
 						var deleteIndex = selectedWord.indexOf(lastContent);
 						if(deleteIndex != -1){
@@ -178,7 +253,7 @@
 							for(var i =0;i<inputArr.length;i++){
 								console.log(tdList[i].innerHTML);
 								if(tdList[i].innerHTML == lastContent){
-									alert("找到cell了，准备删除");
+									// alert("找到cell了，准备删除");
 									tdList[i].style.textDecoration = "";
 								}
 							}
@@ -204,9 +279,12 @@
 	inputArr.each(function(index,element){
 		$(this).focus(function(event){
 			inputArr.each(function(index, el) {
+				$(this)[0].index = index;
 				inputUnselected($(this)[0]);
 				selectedColor($(this)[0]);
 			});
+			
+
 			// console.log($(this));
 			// $(this).addClass('inputFocus');
 			inputSelected($(this)[0]);
@@ -214,39 +292,33 @@
 			whiteColor($(this)[0]);
 			// console.log($(this)[0]);
 			selected = true;
+			if(selectedIndex+1){
+				//如果已经操作过了
+				console.log("再次操作,准备将"+selectedIndex+"个箭头点灭");
+				oButtonList.childNodes[selectedIndex+1].childNodes[0].childNodes[1].style.display = "none";
+			}else{
+				//如果刚刚开始操作
+				// if(selectedIndex == 0)
+				console.log("第一次操作，将第一个箭头点亮");
+			}
+			// oButtonList.childNodes[selectedIndex+1].childNodes[0].childNodes[1].style.display = "none";
+			
 			selectedIndex = index;
+			console.log(selectedIndex);
+			//将对应的button的箭头显示出来
+			oButtonList.childNodes[selectedIndex+1].childNodes[0].childNodes[1].style.display = "block";
+
 			$(this).blur();
 		});
 		//把互斥的内容放到blur里来做了
 		$(this).blur(function(){
 			//每次选择都可能会改变当前空的当前值，因此需要保存下来这个值，当cell被点击的时候，再去判断是否要划掉
 			lastContent = $(this)[0].value;
-			console.log(lastContent);
+			// console.log(lastContent);
 		});
 	});
 </script>
 <script type="text/javascript">
-
-	//给表格绑定事件
-	/*var oTd = $("table").find("td");
-	oTd.each(function(){
-		$(this).mouseover(function(event){
-			//只有当有padding被选中才能够有样式变化
-			if(selected){
-				$(this).addClass('cellGreen');
-			}
-		});
-		$(this).mouseout(function(event){
-			if(selected){
-				$(this).removeClass('cellGreen');
-			}
-		});
-		$(this).click(function(){
-			if(selected){
-				inputArr[selectedIndex].html($(this).html());
-			}
-		});
-	});*/
 	var oTable = $('table');
 	//事件代理给大的Table
 	oTable.mouseover(function(event){
@@ -258,6 +330,38 @@
 	oTable.click(function(event){
 		editCell(event,3);
 	});
+</script>
+<script type="text/javascript">
+	oButtonList = document.getElementById("buttonList");
+	var oButtonA;
+	for(var i=0;i<inputArr.length;i++){
+		//添加div作为按钮并绑定事件
+		oButtonA = document.createElement("a");
+		oButtonA.href = '#'+(i+1);
+		oButtonA.innerHTML = '<div>'+'<div>'+(i+1)+'</div>'+'<div>'+'</div>'+'</div>';
+		oButtonA.childNodes[0].childNodes[1].style.display = "none";
+		oButtonList.appendChild(oButtonA);
+		oButtonA.index = i;
+		oButtonA.onclick = function(){
+			// console.log(this.index);
+			console.log(inputArr[this.index]);
+			// this.childNodes[0].style.background = "rgb(98,198,240)";
+			inputArr[this.index].focus();
+		};
+	}
+</script>
+<script type="text/javascript">
+	function submit(){
+		alert("我已经提交");
+		var oTextPara = document.getElementById("textPara");
+		var oInputArr = oTextPara.getElementsByTagName("input");
+		var check;
+		//向后台提交答案，获取反馈信息
+		res = $.ajax({
+			url:"correct.php",
+			async:true
+		});
+	}
 </script>
 </body>
 </html>

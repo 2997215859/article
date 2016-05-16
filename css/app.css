@@ -1,5 +1,8 @@
+.sumbit{
+	width:70%;height:40%;border:1px solid gray;border-radius: 15%;
+}
 .textP p{
-	text-indent: 2em
+	text-indent: 2em;
 }
 p input{
 	width:60px;
@@ -27,7 +30,11 @@ p input{
 	// padding-left:60px;
 }
 .textBody{
-	overflow: scroll;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	font-size: 1em;
+}
+#textBody{
 }
 .table-outer-bordered{
 	border: 2px solid gray;
@@ -37,4 +44,57 @@ p input{
 }
 table.table-outer-bordered {
 	cursor: pointer;
+}
+.textTitle{
+	margin-bottom: 1em;
+}
+// .pannel-bottom{
+// 	margin-bottom:0px;!important
+// }
+
+.canvasBorder{
+	width:8%;height:2em;
+	// border:1px solid black;
+	cursor: pointer;
+}
+.buttonList{
+	text-align: center;
+	margin: 0 auto;
+}
+.buttonList a div{
+	display: inline-block;
+	width: 2em;
+	height: 4em;
+	text-align: center;
+	margin-right: 0.5em;
+	// border: 1px solid black;
+	cursor: pointer;
+}
+.buttonList a div{
+	position: relative;
+}
+.buttonList a div div:first-child{
+	width: 2em;
+	height: 2em;
+	line-height: 2em;
+	background: rgb(219,219,219);
+	color: #FFF;
+	border-radius: 0.5em;
+}
+.buttonList a div div:last-child{
+	// width: 2em;
+	// height: 2em;
+	// line-height: 2em;
+	// background: #FFF;
+	position: absolute;
+	left: 0.5em;
+	width: 0px;
+	height:0px;
+	// border-width: 0.5em;
+	// border-color: transparent transparent #007998 transparent;
+	border-left: 0.5em solid transparent;
+	border-right: 0.5em solid transparent;
+	border-bottom: 0.5em solid green;
+	border-top:0;
+	// padding-right: 0.5em;
 }
